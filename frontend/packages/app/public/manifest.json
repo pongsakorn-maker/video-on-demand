@@ -1,6 +1,6 @@
 {
-  "short_name": "Backstage",
-  "name": "Backstage",
+  "short_name": "VOD",
+  "name": "Video On Demand",
   "icons": [
     {
       "src": "bookshelf.svg",

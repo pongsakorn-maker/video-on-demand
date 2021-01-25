@@ -25,8 +25,9 @@ export type VideoDescriptionProps = {
 
 function VideoCard({ title, chanel, watched, url }: VideoDescriptionProps) {
   const classes = useStyles();
-  const preventDefault = (event: React.SyntheticEvent) =>
+  const preventDefault = (event: React.SyntheticEvent) => {
     event.preventDefault();
+  };
   return (
     <Grid item xs={12} md={3}>
       <Link href={url}>

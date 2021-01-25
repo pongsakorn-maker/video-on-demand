@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Grid, Avatar, IconButton } from '@material-ui/core';
-import { Header, Content, Page, pageTheme, SidebarPage } from '@backstage/core';
+import { Grid } from '@material-ui/core';
+import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import {
   makeStyles,
   fade,
@@ -8,14 +8,8 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import VideoCard from '../VideoCard';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
-
-// header css
-const HeaderCustom = {
-  minHeight: '50px',
-};
+import Navbar from '../Navbar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,34 +59,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const RecommendedVideo: FC<{}> = () => {
   const classes = useStyles();
-
   return (
     <SidebarPage>
       <AppSidebar />
       <Page theme={pageTheme.service}>
-        <Header style={HeaderCustom} title={`Video On Demand`}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="ค้นหา"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div>
-            <IconButton href="/profile">
-              <Avatar
-                alt="Profile"
-                src="https://png.pngitem.com/pimgs/s/339-3390436_transparent-kaneki-png-ken-kaneki-png-png-download.png"
-              />
-            </IconButton>
-          </div>
-        </Header>
+        <Navbar title="Video" />
         <Content>
           <Grid container>
             <VideoCard

@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import {
   makeStyles,
@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core/styles';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
 import Navbar from '../Navbar';
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -56,22 +55,24 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Profile: FC<{}> = () => {
-  const classes = useStyles();
+export type WatchProps = {
+  title: string;
+  url: string;
+};
+
+function Watch({ title }: WatchProps) {
 
   return (
     <SidebarPage>
       <AppSidebar />
       <Page theme={pageTheme.service}>
-        <Navbar title="Profile" />
+        <Navbar title={title} />
         <Content>
-          <Grid container>
-            <Typography>Profile</Typography>
-          </Grid>
+          <Grid container></Grid>
         </Content>
       </Page>
     </SidebarPage>
   );
-};
+}
 
-export default Profile;
+export default Watch;

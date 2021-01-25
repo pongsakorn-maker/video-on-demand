@@ -1,20 +1,14 @@
 import React, { FC } from 'react';
-import { Grid, Avatar, IconButton, Typography } from '@material-ui/core';
-import { Header, Content, Page, pageTheme, SidebarPage } from '@backstage/core';
+import { Grid, Typography } from '@material-ui/core';
+import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import {
   makeStyles,
   fade,
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
-
-// header css
-const HeaderCustom = {
-  minHeight: '50px',
-};
+import Navbar from '../Navbar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,29 +63,7 @@ const PlaylistVideo: FC<{}> = () => {
     <SidebarPage>
       <AppSidebar />
       <Page theme={pageTheme.service}>
-        <Header style={HeaderCustom} title={`Video On Demand`}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="ค้นหา"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div>
-            <IconButton href="/profile">
-              <Avatar
-                alt="Profile"
-                src="https://png.pngitem.com/pimgs/s/339-3390436_transparent-kaneki-png-ken-kaneki-png-png-download.png"
-              />
-            </IconButton>
-          </div>
-        </Header>
+        <Navbar title="Playlist" />
         <Content>
           <Grid container>
             <Typography>Playlist</Typography>
