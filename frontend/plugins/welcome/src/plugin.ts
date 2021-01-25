@@ -6,6 +6,7 @@ import Signup from './components/SignUp'
 import ForgotPass from './components/ForgotPass'
 import Playlist from './components/PlaylistVideo'
 import Profile from './components/Profile'
+import Watch from './components/Watch'
 export const plugin = createPlugin({
   id: 'welcome',
   register({ router }) {
@@ -16,5 +17,6 @@ export const plugin = createPlugin({
     router.registerRoute('/', RecommendedVideo);
     router.registerRoute('/playlist', Playlist);
     router.registerRoute('/profile', Profile);
+    router.registerRoute('/watch', Watch);
   },
 });
