@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PlaylistVideo: FC<{}> = () => {
+const Profile: FC<{}> = () => {
   const classes = useStyles();
 
   return (
@@ -94,7 +94,7 @@ const PlaylistVideo: FC<{}> = () => {
         </Header>
         <Content>
           <Grid container>
-            <Typography>Playlist</Typography>
+            <Typography>Profile</Typography>
           </Grid>
         </Content>
       </Page>
@@ -102,4 +102,4 @@ const PlaylistVideo: FC<{}> = () => {
   );
 };
 
-export default PlaylistVideo;
+export default Profile;

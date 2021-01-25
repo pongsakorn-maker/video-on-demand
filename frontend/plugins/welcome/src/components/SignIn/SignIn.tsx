@@ -60,15 +60,20 @@ const SignIn: FC<{}> = () => {
 
   function signin() {
     console.log(email, password);
-    // status = true;
-    // window.location.href = '/recommendedvideo';
-    if (status == false) {
-      Toast.fire({
-        icon: 'error',
-        title: 'Username or Password is incorrect!',
-      });
-    }
-    status = false;
+    status = true;
+    setTimeout(function () {
+      if (status == true) {
+          console.log("you are completely login");
+      }
+  }, 5000);
+    window.location.href = '/recommendedvideo';
+    // if (status == false) {
+    //   Toast.fire({
+    //     icon: 'error',
+    //     title: 'Username or Password is incorrect!',
+    //   });
+    // }
+    // status = false;
   }
   return (
       <Container component="main" maxWidth="xs">

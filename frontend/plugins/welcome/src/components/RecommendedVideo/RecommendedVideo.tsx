@@ -11,6 +11,7 @@ import VideoCard from '../VideoCard';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
+
 // header css
 const HeaderCustom = {
   minHeight: '50px',
@@ -70,28 +71,27 @@ const RecommendedVideo: FC<{}> = () => {
       <AppSidebar />
       <Page theme={pageTheme.service}>
         <Header style={HeaderCustom} title={`Video On Demand`}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="ค้นหา"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="ค้นหา"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+          <div>
+            <IconButton href="/profile">
+              <Avatar
+                alt="Profile"
+                src="https://png.pngitem.com/pimgs/s/339-3390436_transparent-kaneki-png-ken-kaneki-png-png-download.png"
               />
-            </div>
-            <div>
-              <IconButton>
-                <Avatar
-                  alt=""
-                  src="https://png.pngitem.com/pimgs/s/339-3390436_transparent-kaneki-png-ken-kaneki-png-png-download.png"
-                />
-              </IconButton>
-              <div style={{ marginLeft: 10 }}>Pongsakorn Maprakhon</div>
-            </div>
+            </IconButton>
+          </div>
         </Header>
         <Content>
           <Grid container>
@@ -99,61 +99,73 @@ const RecommendedVideo: FC<{}> = () => {
               title={'ดาบพิฆาตอสูร EP ที่ 1'}
               chanel={'Anime'}
               watched={10}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 2'}
               chanel={'Anime'}
               watched={101}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 3'}
               chanel={'Anime'}
               watched={1010}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 4'}
               chanel={'Anime'}
               watched={10101}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 5'}
               chanel={'Anime'}
               watched={101010}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 6'}
               chanel={'Anime'}
               watched={1010101}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 7'}
               chanel={'Anime'}
               watched={10101010}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 8'}
               chanel={'Anime'}
-              watched={20}
+              watched={101010100}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 9'}
               chanel={'Anime'}
               watched={102}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 10'}
               chanel={'Anime'}
               watched={1020}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 11'}
               chanel={'Anime'}
               watched={10202}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
             <VideoCard
               title={'ดาบพิฆาตอสูร EP ที่ 12'}
               chanel={'Anime'}
               watched={1020220}
+              url="https://www.youtube.com/watch?v=P-uhgIzHYYo&ab_channel=MelodicStar"
             ></VideoCard>
           </Grid>
         </Content>
