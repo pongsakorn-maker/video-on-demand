@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useContext } from 'react';
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
 import Navbar from '../Navbar';
@@ -10,6 +10,13 @@ import {
   zoomableContext,
   ZoomableContextType,
 } from 'react-zoomable-media';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    flexGrow: 1,
+  },
+}));
 
 const Video = ({
   videoRef,
@@ -37,6 +44,8 @@ const Video = ({
     link.click();
   };
 
+  const classes = useStyles();
+
   return (
     <SidebarPage>
       <AppSidebar />
@@ -44,37 +53,51 @@ const Video = ({
         <Navbar title="Profile" />
         <Content>
           <Grid container>
-              <ZoomableVideo
-                render={({ onMediaReady }) => {
-                  return (
-                    <video
-                      controls
-                      crossOrigin="anonymous"
-                      onLoadedMetadata={() => onMediaReady(videoRef)}
-                      style={{
-                        height: 'auto',
-                        width: '100%',
-                      }}
-                      ref={videoRef}
-                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                    />
-                  );
-                }}
-              ></ZoomableVideo>
-              <button onClick={togglePlay}>{isPlay ? 'Pause' : 'Play'}</button>
-
-              <button onClick={onClickHandler}>Crop Image</button>
+          <div style={{ width: 1280, height: 720, marginBottom: 150 }}>
+            <ZoomableVideo
+              render={({ onMediaReady }) => {
+                return (
+                  <video
+                    controls
+                    crossOrigin="anonymous"
+                    onLoadedMetadata={() => onMediaReady(videoRef)}
+                    style={{
+                      height: 'auto',
+                      width: '100%',
+                    }}
+                    ref={videoRef}
+                    src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                  />
+                );
+              }}
+            ></ZoomableVideo>
+            <div className={classes.button}>
+              {/* <button onClick={togglePlay}>{isPlay ? 'Pause' : 'Play'}</button> */}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={onClickHandler}
+              >
+                Crop Image
+              </Button>
+              {/* <button onClick={onClickHandler}>Crop Image</button> */}
               {imageData && (
                 <>
                   <img
-                    style={{ width: 810, height: 450, objectFit: 'contain' }}
+                    style={{ width: 1280, height: 720, objectFit: 'contain' }}
                     src={imageData}
                   />
-                  <button onClick={downloadImage}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={downloadImage}
+                  >
                     Download Cropped Image
-                  </button>
+                  </Button>
                 </>
               )}
+            </div>
+            </div>
           </Grid>
         </Content>
       </Page>
