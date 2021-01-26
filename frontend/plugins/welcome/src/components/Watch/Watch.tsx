@@ -10,13 +10,6 @@ import {
   zoomableContext,
   ZoomableContextType,
 } from 'react-zoomable-media';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  button: {
-    flexGrow: 1,
-  },
-}));
 
 const Video = ({
   videoRef,
@@ -44,43 +37,61 @@ const Video = ({
     link.click();
   };
 
-  const classes = useStyles();
-
   return (
     <SidebarPage>
       <AppSidebar />
       <Page theme={pageTheme.service}>
-        <Navbar title="Profile" />
+        <Navbar title="Video On Demand" />
         <Content>
           <Grid container>
-          <div style={{ width: 1280, height: 720, marginBottom: 150 }}>
-            <ZoomableVideo
-              render={({ onMediaReady }) => {
-                return (
-                  <video
-                    controls
-                    crossOrigin="anonymous"
-                    onLoadedMetadata={() => onMediaReady(videoRef)}
-                    style={{
-                      height: 'auto',
-                      width: '100%',
-                    }}
-                    ref={videoRef}
-                    src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                  />
-                );
-              }}
-            ></ZoomableVideo>
-            <div className={classes.button}>
-              {/* <button onClick={togglePlay}>{isPlay ? 'Pause' : 'Play'}</button> */}
+            <div style={{ width: 1280, height: 720, marginBottom: 150 }}>
+              <ZoomableVideo
+                render={({ onMediaReady }) => {
+                  return (
+                    // <video
+                    //   id="my-video"
+                    //   className="video-js"
+                    //   controls
+                    //   preload="auto"
+                    //   poster="MY_VIDEO_POSTER.jpg"
+                    //   data-setup="{}"
+                    //   onLoadedMetadata={() => onMediaReady(videoRef)}
+                    //   style={{
+                    //     height: 'auto',
+                    //     width: '100%',
+                    //   }}
+                    //   ref={videoRef}
+                    // >
+                    //   <source
+                    //     src="https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"
+                    //     type="video/mp4"
+                    //   />
+                    // </video>
+                    <video
+                      autoPlay
+                      controls
+                      crossOrigin="anonymous"
+                      onLoadedMetadata={() => onMediaReady(videoRef)}
+                      style={{
+                        height: 'auto',
+                        width: '100%',
+                      }}
+                      ref={videoRef}
+                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    />
+                  );
+                }}
+              ></ZoomableVideo>
+              <h1>Here is a video name</h1>
+              <p></p>
               <Button
+                style={{ marginBottom: 5 }}
                 variant="contained"
                 color="primary"
                 onClick={onClickHandler}
               >
                 Crop Image
               </Button>
-              {/* <button onClick={onClickHandler}>Crop Image</button> */}
               {imageData && (
                 <>
                   <img
@@ -96,7 +107,6 @@ const Video = ({
                   </Button>
                 </>
               )}
-            </div>
             </div>
           </Grid>
         </Content>

@@ -27,7 +27,8 @@
     "react-dom": "^16.13.1",
     "react-use": "^15.3.3",
     "react-router-dom": "6.0.0-beta.0",
-    "react-zoomable-media": "^1.0.9"
+    "react-zoomable-media": "^1.0.9",
+    "video.js": "7.10.2"
   },
   "devDependencies": {
     "@backstage/cli": "^0.1.1-alpha.18",
