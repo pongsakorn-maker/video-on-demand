@@ -2,6 +2,7 @@ package schema
 
 import (
 	"github.com/facebookincubator/ent"
+	"github.com/facebookincubator/ent/schema/edge"
 	"github.com/facebookincubator/ent/schema/field"
 )
 
@@ -15,11 +16,14 @@ func (Video) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title").NotEmpty(),
 		field.String("description").NotEmpty(),
+		field.String("url").NotEmpty(),
 		field.Time("timestamp"),
 	}
 }
 
 // Edges of the Video.
 func (Video) Edges() []ent.Edge {
-	return nil
+	return []ent.Edge{
+		edge.From("owner", User.Type).Ref("videos").Unique(),
+	}
 }

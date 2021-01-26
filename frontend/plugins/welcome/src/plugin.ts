@@ -10,7 +10,7 @@ import Watch from './components/Watch'
 export const plugin = createPlugin({
   id: 'welcome',
   register({ router }) {
-    router.registerRoute('/auth/signin', SignIn);
+    router.registerRoute('/signin', SignIn);
     router.registerRoute('/signup', Signup);
     router.registerRoute('/forgotpass', ForgotPass);
     router.registerRoute('/watch_video', WatchVideo);

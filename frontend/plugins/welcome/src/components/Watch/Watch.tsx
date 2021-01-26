@@ -31,7 +31,6 @@ const Video = ({
 
   const downloadImage = () => {
     const link = document.createElement('a');
-
     link.setAttribute('href', imageData);
     link.setAttribute('download', 'Cropped Image');
     link.click();
@@ -48,25 +47,6 @@ const Video = ({
               <ZoomableVideo
                 render={({ onMediaReady }) => {
                   return (
-                    // <video
-                    //   id="my-video"
-                    //   className="video-js"
-                    //   controls
-                    //   preload="auto"
-                    //   poster="MY_VIDEO_POSTER.jpg"
-                    //   data-setup="{}"
-                    //   onLoadedMetadata={() => onMediaReady(videoRef)}
-                    //   style={{
-                    //     height: 'auto',
-                    //     width: '100%',
-                    //   }}
-                    //   ref={videoRef}
-                    // >
-                    //   <source
-                    //     src="https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"
-                    //     type="video/mp4"
-                    //   />
-                    // </video>
                     <video
                       autoPlay
                       controls

@@ -10,6 +10,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 const HeaderCustom = {
   minHeight: '50px',
@@ -69,7 +70,7 @@ function Navbar({ title }: NavbarProps) {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(false);
   const handleAuth = () => {
-    setAuth(true);
+    console.log("signing in!");
   };
   return (
     <Header style={HeaderCustom} title={title}>
@@ -88,9 +89,11 @@ function Navbar({ title }: NavbarProps) {
       </div>
       <div>
         {!auth && (
-          <Button variant="outlined" color="primary" onClick={handleAuth}>
-            Sign In
-          </Button>
+          <Link href="/signin">
+            <Button variant="outlined" color="primary" onClick={handleAuth}>
+              Sign In
+            </Button>
+          </Link>
         )}
         {auth && (
           <IconButton href="/profile">

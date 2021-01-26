@@ -66,7 +66,7 @@ const SignIn: FC<{}> = () => {
           console.log("you are completely login");
       }
   }, 5000);
-    window.location.href = '/recommendedvideo';
+    window.location.href = '/';
     // if (status == false) {
     //   Toast.fire({
     //     icon: 'error',
