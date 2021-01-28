@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * SUT SA Example API Playlist Vidoe
+ * SUT SA Example API
  * This is a sample server for SUT SE 2563
  *
  * The version of the OpenAPI document: 1.0
@@ -15,15 +15,6 @@
 
 import * as runtime from '../runtime';
 import {
-    EntPlaylist,
-    EntPlaylistFromJSON,
-    EntPlaylistToJSON,
-    EntPlaylistVideo,
-    EntPlaylistVideoFromJSON,
-    EntPlaylistVideoToJSON,
-    EntResolution,
-    EntResolutionFromJSON,
-    EntResolutionToJSON,
     EntUser,
     EntUserFromJSON,
     EntUserToJSON,
@@ -31,18 +22,6 @@ import {
     EntVideoFromJSON,
     EntVideoToJSON,
 } from '../models';
-
-export interface CreatePlaylistRequest {
-    playlist: EntPlaylist;
-}
-
-export interface CreatePlaylistVideoRequest {
-    playlistVideo: EntPlaylistVideo;
-}
-
-export interface CreateResolutionRequest {
-    resolution: EntResolution;
-}
 
 export interface CreateUserRequest {
     user: EntUser;
@@ -60,35 +39,12 @@ export interface DeleteVideoRequest {
     id: number;
 }
 
-export interface GetPlaylistRequest {
-    id: number;
-}
-
-export interface GetResolutionRequest {
-    id: number;
-}
-
 export interface GetUserRequest {
     id: number;
 }
 
 export interface GetVideoRequest {
     id: number;
-}
-
-export interface ListPlaylistRequest {
-    limit?: number;
-    offset?: number;
-}
-
-export interface ListPlaylistVideoRequest {
-    limit?: number;
-    offset?: number;
-}
-
-export interface ListResolutionRequest {
-    limit?: number;
-    offset?: number;
 }
 
 export interface ListUserRequest {
@@ -115,111 +71,6 @@ export interface UpdateVideoRequest {
  * 
  */
 export class DefaultApi extends runtime.BaseAPI {
-
-    /**
-     * Create playlist
-     * Create playlist
-     */
-    async createPlaylistRaw(requestParameters: CreatePlaylistRequest): Promise<runtime.ApiResponse<EntPlaylist>> {
-        if (requestParameters.playlist === null || requestParameters.playlist === undefined) {
-            throw new runtime.RequiredError('playlist','Required parameter requestParameters.playlist was null or undefined when calling createPlaylist.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/playlists`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntPlaylistToJSON(requestParameters.playlist),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPlaylistFromJSON(jsonValue));
-    }
-
-    /**
-     * Create playlist
-     * Create playlist
-     */
-    async createPlaylist(requestParameters: CreatePlaylistRequest): Promise<EntPlaylist> {
-        const response = await this.createPlaylistRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Create playlist-video
-     * Create playlist-video
-     */
-    async createPlaylistVideoRaw(requestParameters: CreatePlaylistVideoRequest): Promise<runtime.ApiResponse<EntPlaylistVideo>> {
-        if (requestParameters.playlistVideo === null || requestParameters.playlistVideo === undefined) {
-            throw new runtime.RequiredError('playlistVideo','Required parameter requestParameters.playlistVideo was null or undefined when calling createPlaylistVideo.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/playlist-videos`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntPlaylistVideoToJSON(requestParameters.playlistVideo),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPlaylistVideoFromJSON(jsonValue));
-    }
-
-    /**
-     * Create playlist-video
-     * Create playlist-video
-     */
-    async createPlaylistVideo(requestParameters: CreatePlaylistVideoRequest): Promise<EntPlaylistVideo> {
-        const response = await this.createPlaylistVideoRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Create resolution
-     * Create resolution
-     */
-    async createResolutionRaw(requestParameters: CreateResolutionRequest): Promise<runtime.ApiResponse<EntResolution>> {
-        if (requestParameters.resolution === null || requestParameters.resolution === undefined) {
-            throw new runtime.RequiredError('resolution','Required parameter requestParameters.resolution was null or undefined when calling createResolution.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/resolutions`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntResolutionToJSON(requestParameters.resolution),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntResolutionFromJSON(jsonValue));
-    }
-
-    /**
-     * Create resolution
-     * Create resolution
-     */
-    async createResolution(requestParameters: CreateResolutionRequest): Promise<EntResolution> {
-        const response = await this.createResolutionRaw(requestParameters);
-        return await response.value();
-    }
 
     /**
      * Create user
@@ -356,70 +207,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * get playlist by ID
-     * Get a playlist entity by ID
-     */
-    async getPlaylistRaw(requestParameters: GetPlaylistRequest): Promise<runtime.ApiResponse<EntPlaylist>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPlaylist.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/playlists/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPlaylistFromJSON(jsonValue));
-    }
-
-    /**
-     * get playlist by ID
-     * Get a playlist entity by ID
-     */
-    async getPlaylist(requestParameters: GetPlaylistRequest): Promise<EntPlaylist> {
-        const response = await this.getPlaylistRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get resolution by ID
-     * Get a resolution entity by ID
-     */
-    async getResolutionRaw(requestParameters: GetResolutionRequest): Promise<runtime.ApiResponse<EntResolution>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getResolution.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/resolutions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntResolutionFromJSON(jsonValue));
-    }
-
-    /**
-     * get resolution by ID
-     * Get a resolution entity by ID
-     */
-    async getResolution(requestParameters: GetResolutionRequest): Promise<EntResolution> {
-        const response = await this.getResolutionRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * get user by ID
      * Get a user entity by ID
      */
@@ -480,114 +267,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getVideo(requestParameters: GetVideoRequest): Promise<EntVideo> {
         const response = await this.getVideoRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * list playlist entities
-     * List playlist entities
-     */
-    async listPlaylistRaw(requestParameters: ListPlaylistRequest): Promise<runtime.ApiResponse<Array<EntPlaylist>>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/playlists`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPlaylistFromJSON));
-    }
-
-    /**
-     * list playlist entities
-     * List playlist entities
-     */
-    async listPlaylist(requestParameters: ListPlaylistRequest): Promise<Array<EntPlaylist>> {
-        const response = await this.listPlaylistRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * list playlist-video entities
-     * List playlist-video entities
-     */
-    async listPlaylistVideoRaw(requestParameters: ListPlaylistVideoRequest): Promise<runtime.ApiResponse<Array<EntPlaylistVideo>>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/playlist-videos`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPlaylistVideoFromJSON));
-    }
-
-    /**
-     * list playlist-video entities
-     * List playlist-video entities
-     */
-    async listPlaylistVideo(requestParameters: ListPlaylistVideoRequest): Promise<Array<EntPlaylistVideo>> {
-        const response = await this.listPlaylistVideoRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * list resolution entities
-     * List resolution entities
-     */
-    async listResolutionRaw(requestParameters: ListResolutionRequest): Promise<runtime.ApiResponse<Array<EntResolution>>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/resolutions`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntResolutionFromJSON));
-    }
-
-    /**
-     * list resolution entities
-     * List resolution entities
-     */
-    async listResolution(requestParameters: ListResolutionRequest): Promise<Array<EntResolution>> {
-        const response = await this.listResolutionRaw(requestParameters);
         return await response.value();
     }
 

@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"time"
+
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/edge"
 	"github.com/facebookincubator/ent/schema/field"
@@ -16,8 +18,8 @@ func (Video) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title").NotEmpty(),
 		field.String("description").NotEmpty(),
-		field.String("url").NotEmpty(),
-		field.Time("timestamp"),
+		field.String("url").NotEmpty().Unique(),
+		field.Time("timestamp").Default(time.Now),
 	}
 }
 

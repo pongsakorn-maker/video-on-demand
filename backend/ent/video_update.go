@@ -53,6 +53,14 @@ func (vu *VideoUpdate) SetTimestamp(t time.Time) *VideoUpdate {
 	return vu
 }
 
+// SetNillableTimestamp sets the timestamp field if the given value is not nil.
+func (vu *VideoUpdate) SetNillableTimestamp(t *time.Time) *VideoUpdate {
+	if t != nil {
+		vu.SetTimestamp(*t)
+	}
+	return vu
+}
+
 // SetOwnerID sets the owner edge to User by id.
 func (vu *VideoUpdate) SetOwnerID(id int) *VideoUpdate {
 	vu.mutation.SetOwnerID(id)
@@ -270,6 +278,14 @@ func (vuo *VideoUpdateOne) SetURL(s string) *VideoUpdateOne {
 // SetTimestamp sets the timestamp field.
 func (vuo *VideoUpdateOne) SetTimestamp(t time.Time) *VideoUpdateOne {
 	vuo.mutation.SetTimestamp(t)
+	return vuo
+}
+
+// SetNillableTimestamp sets the timestamp field if the given value is not nil.
+func (vuo *VideoUpdateOne) SetNillableTimestamp(t *time.Time) *VideoUpdateOne {
+	if t != nil {
+		vuo.SetTimestamp(*t)
+	}
 	return vuo
 }
 

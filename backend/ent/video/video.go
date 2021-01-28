@@ -2,6 +2,10 @@
 
 package video
 
+import (
+	"time"
+)
+
 const (
 	// Label holds the string label denoting the video type in the database.
 	Label = "video"
@@ -51,4 +55,6 @@ var (
 	DescriptionValidator func(string) error
 	// URLValidator is a validator for the "url" field. It is called by the builders before save.
 	URLValidator func(string) error
+	// DefaultTimestamp holds the default value on creation for the timestamp field.
+	DefaultTimestamp func() time.Time
 )

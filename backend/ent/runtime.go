@@ -3,6 +3,8 @@
 package ent
 
 import (
+	"time"
+
 	"github.com/pongsakorn-maker/video-on-demand/ent/schema"
 	"github.com/pongsakorn-maker/video-on-demand/ent/user"
 	"github.com/pongsakorn-maker/video-on-demand/ent/video"
@@ -48,4 +50,8 @@ func init() {
 	videoDescURL := videoFields[2].Descriptor()
 	// video.URLValidator is a validator for the "url" field. It is called by the builders before save.
 	video.URLValidator = videoDescURL.Validators[0].(func(string) error)
+	// videoDescTimestamp is the schema descriptor for timestamp field.
+	videoDescTimestamp := videoFields[3].Descriptor()
+	// video.DefaultTimestamp holds the default value on creation for the timestamp field.
+	video.DefaultTimestamp = videoDescTimestamp.Default.(func() time.Time)
 }

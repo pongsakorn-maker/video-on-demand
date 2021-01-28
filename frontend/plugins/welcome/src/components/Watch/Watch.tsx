@@ -20,21 +20,21 @@ const Video = ({
   isPlay: boolean;
   togglePlay: () => void;
 }) => {
-  const { cropImage } = useContext(zoomableContext) as ZoomableContextType;
-  const [imageData, serImageData] = useState<string>('');
+  // const { cropImage } = useContext(zoomableContext) as ZoomableContextType;
+  // const [imageData, serImageData] = useState<string>('');
 
-  const onClickHandler = () => {
-    cropImage((imageData: string) => {
-      serImageData(imageData);
-    });
-  };
+  // const onClickHandler = () => {
+  //   cropImage((imageData: string) => {
+  //     serImageData(imageData);
+  //   });
+  // };
 
-  const downloadImage = () => {
-    const link = document.createElement('a');
-    link.setAttribute('href', imageData);
-    link.setAttribute('download', 'Cropped Image');
-    link.click();
-  };
+  // const downloadImage = () => {
+  //   const link = document.createElement('a');
+  //   link.setAttribute('href', imageData);
+  //   link.setAttribute('download', 'Cropped Image');
+  //   link.click();
+  // };
 
   return (
     <SidebarPage>
@@ -43,28 +43,33 @@ const Video = ({
         <Navbar title="Video On Demand" />
         <Content>
           <Grid container>
-            <div style={{ width: 1280, height: 720, marginBottom: 150 }}>
+            <div style={{ width: 1280, height: 720, marginBottom: 150,backgroundColor:"#000000" }}>
               <ZoomableVideo
                 render={({ onMediaReady }) => {
                   return (
                     <video
                       autoPlay
                       controls
-                      crossOrigin="anonymous"
+                      muted
+                      // crossOrigin="anonymous"
                       onLoadedMetadata={() => onMediaReady(videoRef)}
                       style={{
-                        height: 'auto',
+                        height: '100%',
                         width: '100%',
                       }}
                       ref={videoRef}
-                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                      src="https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4"
+                      // src="https://storage.googleapis.com/video-on-demand-sut/BigBuckBunny.mp4"
+                      // src="https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"
+                      // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                      // src="https://firebasestorage.googleapis.com/v0/b/fir-video-upload-487f2.appspot.com/o/Unravel%20-%20Tokyo%20Ghoul%20OP%201%20%5BFull%20Version%5D%20Fingerstyle%20Guitar%20Cover.webm?alt=media&token=f7b081e2-6c7d-49a7-8d7c-e9ec5660c0f7"
                     />
                   );
                 }}
               ></ZoomableVideo>
               <h1>Here is a video name</h1>
               <p></p>
-              <Button
+              {/* <Button
                 style={{ marginBottom: 5 }}
                 variant="contained"
                 color="primary"
@@ -86,7 +91,7 @@ const Video = ({
                     Download Cropped Image
                   </Button>
                 </>
-              )}
+              )} */}
             </div>
           </Grid>
         </Content>

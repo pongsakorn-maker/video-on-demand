@@ -45,6 +45,14 @@ func (vc *VideoCreate) SetTimestamp(t time.Time) *VideoCreate {
 	return vc
 }
 
+// SetNillableTimestamp sets the timestamp field if the given value is not nil.
+func (vc *VideoCreate) SetNillableTimestamp(t *time.Time) *VideoCreate {
+	if t != nil {
+		vc.SetTimestamp(*t)
+	}
+	return vc
+}
+
 // SetOwnerID sets the owner edge to User by id.
 func (vc *VideoCreate) SetOwnerID(id int) *VideoCreate {
 	vc.mutation.SetOwnerID(id)
@@ -96,7 +104,8 @@ func (vc *VideoCreate) Save(ctx context.Context) (*Video, error) {
 		}
 	}
 	if _, ok := vc.mutation.Timestamp(); !ok {
-		return nil, &ValidationError{Name: "timestamp", err: errors.New("ent: missing required field \"timestamp\"")}
+		v := video.DefaultTimestamp()
+		vc.mutation.SetTimestamp(v)
 	}
 	var (
 		err  error

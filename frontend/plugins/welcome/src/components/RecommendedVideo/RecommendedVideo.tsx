@@ -24,7 +24,7 @@ const RecommendedVideo: FC<{}> = () => {
     <SidebarPage>
       <AppSidebar />
       <Page theme={pageTheme.service}>
-        <Navbar title="Video" />
+        <Navbar title="Video On Demand" />
         <Content>
           <Grid container>
             <VideoCard

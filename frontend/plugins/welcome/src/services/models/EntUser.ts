@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * SUT SA Example API Playlist Vidoe
+ * SUT SA Example API
  * This is a sample server for SUT SE 2563
  *
  * The version of the OpenAPI document: 1.0
@@ -27,6 +27,12 @@ import {
  */
 export interface EntUser {
     /**
+     * Birthdate holds the value of the "birthdate" field.
+     * @type {string}
+     * @memberof EntUser
+     */
+    birthdate?: string;
+    /**
      * 
      * @type {EntUserEdges}
      * @memberof EntUser
@@ -39,17 +45,35 @@ export interface EntUser {
      */
     email?: string;
     /**
+     * Fname holds the value of the "fname" field.
+     * @type {string}
+     * @memberof EntUser
+     */
+    fname?: string;
+    /**
      * ID of the ent.
      * @type {number}
      * @memberof EntUser
      */
     id?: number;
     /**
-     * Name holds the value of the "name" field.
+     * Password holds the value of the "password" field.
      * @type {string}
      * @memberof EntUser
      */
-    name?: string;
+    password?: string;
+    /**
+     * Sname holds the value of the "sname" field.
+     * @type {string}
+     * @memberof EntUser
+     */
+    sname?: string;
+    /**
+     * Tel holds the value of the "tel" field.
+     * @type {string}
+     * @memberof EntUser
+     */
+    tel?: string;
 }
 
 export function EntUserFromJSON(json: any): EntUser {
@@ -62,10 +86,14 @@ export function EntUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): E
     }
     return {
         
+        'birthdate': !exists(json, 'birthdate') ? undefined : json['birthdate'],
         'edges': !exists(json, 'edges') ? undefined : EntUserEdgesFromJSON(json['edges']),
         'email': !exists(json, 'email') ? undefined : json['email'],
+        'fname': !exists(json, 'fname') ? undefined : json['fname'],
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'password': !exists(json, 'password') ? undefined : json['password'],
+        'sname': !exists(json, 'sname') ? undefined : json['sname'],
+        'tel': !exists(json, 'tel') ? undefined : json['tel'],
     };
 }
 
@@ -78,10 +106,14 @@ export function EntUserToJSON(value?: EntUser | null): any {
     }
     return {
         
+        'birthdate': value.birthdate,
         'edges': EntUserEdgesToJSON(value.edges),
         'email': value.email,
+        'fname': value.fname,
         'id': value.id,
-        'name': value.name,
+        'password': value.password,
+        'sname': value.sname,
+        'tel': value.tel,
     };
 }
 

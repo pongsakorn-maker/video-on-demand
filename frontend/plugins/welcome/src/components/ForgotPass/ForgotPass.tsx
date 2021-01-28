@@ -1,4 +1,4 @@
-import React, { FC ,useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -40,10 +40,15 @@ const Register: FC<{}> = () => {
   const PasswordhandleChange = (event: any) => {
     setPassword(event.target.value as string);
   };
+  const TelhandleChange = (event: any) => {
+    setTel(event.target.value as string);
+  };
   const [email, setEmail] = React.useState(String);
+  const [tel, setTel] = React.useState(String);
+  const [userid, setUserid] = React.useState(Number);
   const [password, setPassword] = React.useState(String);
 
-  var status = false;
+  var forgot = false;
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -56,29 +61,81 @@ const Register: FC<{}> = () => {
     },
   });
 
-  function register() {
-    console.log(email, password);
-    // status = true;
-    // window.location.href = '/';
-    // if (status == false) {
-    //   Toast.fire({
-    //     icon: 'error',
-    //     title: 'username หรือ password ไม่ถูกต้อง',
-    //   });
-    // }
-    // status = false;
+  function forgetpass() {
+    const user ={
+      email : email,
+      tel : tel,
+    }
+    console.log(email, tel);
+    const apiUrl = 'http://localhost:8080/api/v1/users'+"/:"+{email}+"=?"+{tel};
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'ดำเนินการเปลี่ยนพาสเวิดได้',
+          });
+          forgot = true;
+          setUserid(data.data);
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'อีเมลล์หรือเบอร์โทรศัพท์ไม่ถูกต้อง',
+          });
+        }
+      });
   }
+  function changepassword() {
+    
+    const user ={
+      id: userid,
+      password : password,
+    }
+    console.log(userid, password);
+    const apiUrl = 'http://localhost:8080/api/v1/users'+"/:"+{userid};
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'ดำเนินการเปลี่ยนพาสเวิดได้',
+          });
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'อีเมลล์หรือเบอร์โทรศัพท์ไม่ถูกต้อง',
+          });
+        }
+      });
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon/>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-        Forgot Password
+          Forgot Password
         </Typography>
-        <form className={classes.form} >
+        <form className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -97,31 +154,44 @@ const Register: FC<{}> = () => {
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={PasswordhandleChange}
+            name="tel"
+            label="Phone number"
+            type="text"
+            id="tel"
+            value={tel}
+            onChange={TelhandleChange}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={register}
-          >
-            Submit
-          </Button>
+          {!forgot && (
+            <Button
+              // type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={forgetpass}
+            >
+              Change My Password
+            </Button>
+          )}
+          {forgot && (
+            <Button
+              // type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              onClick={changepassword}
+            >
+              Submit
+            </Button>
+          )}
           <Grid container>
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  {"Sign In"}
-                </Link>
-              </Grid>
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                {'Sign In'}
+              </Link>
             </Grid>
+          </Grid>
         </form>
       </div>
     </Container>

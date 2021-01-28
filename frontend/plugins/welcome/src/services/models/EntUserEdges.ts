@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * SUT SA Example API Playlist Vidoe
+ * SUT SA Example API
  * This is a sample server for SUT SE 2563
  *
  * The version of the OpenAPI document: 1.0
@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    EntPlaylist,
-    EntPlaylistFromJSON,
-    EntPlaylistFromJSONTyped,
-    EntPlaylistToJSON,
     EntVideo,
     EntVideoFromJSON,
     EntVideoFromJSONTyped,
@@ -30,12 +26,6 @@ import {
  * @interface EntUserEdges
  */
 export interface EntUserEdges {
-    /**
-     * Playlists holds the value of the playlists edge.
-     * @type {Array<EntPlaylist>}
-     * @memberof EntUserEdges
-     */
-    playlists?: Array<EntPlaylist>;
     /**
      * Videos holds the value of the videos edge.
      * @type {Array<EntVideo>}
@@ -54,7 +44,6 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'playlists': !exists(json, 'playlists') ? undefined : ((json['playlists'] as Array<any>).map(EntPlaylistFromJSON)),
         'videos': !exists(json, 'videos') ? undefined : ((json['videos'] as Array<any>).map(EntVideoFromJSON)),
     };
 }
@@ -68,7 +57,6 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
     }
     return {
         
-        'playlists': value.playlists === undefined ? undefined : ((value.playlists as Array<any>).map(EntPlaylistToJSON)),
         'videos': value.videos === undefined ? undefined : ((value.videos as Array<any>).map(EntVideoToJSON)),
     };
 }

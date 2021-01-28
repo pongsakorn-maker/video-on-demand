@@ -59,21 +59,35 @@ const SignIn: FC<{}> = () => {
   });
 
   function signin() {
+    const user ={
+      email : email,
+      password : password,
+    }
     console.log(email, password);
-    status = true;
-    setTimeout(function () {
-      if (status == true) {
-          console.log("you are completely login");
-      }
-  }, 5000);
-    window.location.href = '/';
-    // if (status == false) {
-    //   Toast.fire({
-    //     icon: 'error',
-    //     title: 'Username or Password is incorrect!',
-    //   });
-    // }
-    // status = false;
+    const apiUrl = 'http://localhost:8080/api/v1/users'+"/:"+{email}+"/:"+{password};
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'เข้าสู่ระบบสำเร็จ',
+          });
+          window.location.href = 'http://localhost:3000/';
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'เข้าสู่ระบบไม่สำเร็จ',
+          });
+        }
+      });
   }
   return (
       <Container component="main" maxWidth="xs">
@@ -113,7 +127,7 @@ const SignIn: FC<{}> = () => {
               onChange={PasswordhandleChange}
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"

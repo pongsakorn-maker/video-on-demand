@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pongsakorn-maker/video-on-demand/ent"
+	"github.com/pongsakorn-maker/video-on-demand/ent/user"
 	"github.com/pongsakorn-maker/video-on-demand/ent/video"
 )
 
@@ -46,11 +47,23 @@ func (ctl *VideoController) CreateVideo(c *gin.Context) {
 		return
 	}
 
+	u, err := ctl.client.User.
+		Query().
+		Where(user.IDEQ(int(obj.OwnerID))).
+		Only(context.Background())
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "user not found",
+		})
+		return
+	}
+
 	timestamp, err := time.Parse(time.RFC3339, obj.Timestamp)
 
 	video, err := ctl.client.Video.
 		Create().
-		SetOwnerID(obj.OwnerID).
+		SetOwner(u).
 		SetTitle(obj.Title).
 		SetDescription(obj.Description).
 		SetURL(obj.URL).
@@ -59,11 +72,15 @@ func (ctl *VideoController) CreateVideo(c *gin.Context) {
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "saving failed",
+			"user":  u,
 		})
 		return
 	}
 
-	c.JSON(200, video)
+	c.JSON(200, gin.H{
+		"video": video,
+		"user":  u,
+	})
 }
 
 // GetVideo handles GET requests to retrieve a video entity

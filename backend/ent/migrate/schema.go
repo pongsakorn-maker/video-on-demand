@@ -30,7 +30,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "title", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString},
-		{Name: "url", Type: field.TypeString},
+		{Name: "url", Type: field.TypeString, Unique: true},
 		{Name: "timestamp", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
 	}

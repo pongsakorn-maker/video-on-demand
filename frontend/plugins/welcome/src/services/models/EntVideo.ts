@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * SUT SA Example API Playlist Vidoe
+ * SUT SA Example API
  * This is a sample server for SUT SE 2563
  *
  * The version of the OpenAPI document: 1.0
@@ -27,6 +27,12 @@ import {
  */
 export interface EntVideo {
     /**
+     * Description holds the value of the "description" field.
+     * @type {string}
+     * @memberof EntVideo
+     */
+    description?: string;
+    /**
      * 
      * @type {EntVideoEdges}
      * @memberof EntVideo
@@ -39,11 +45,17 @@ export interface EntVideo {
      */
     id?: number;
     /**
-     * Name holds the value of the "name" field.
+     * Timestamp holds the value of the "timestamp" field.
      * @type {string}
      * @memberof EntVideo
      */
-    name?: string;
+    timestamp?: string;
+    /**
+     * Title holds the value of the "title" field.
+     * @type {string}
+     * @memberof EntVideo
+     */
+    title?: string;
     /**
      * URL holds the value of the "url" field.
      * @type {string}
@@ -62,9 +74,11 @@ export function EntVideoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
+        'description': !exists(json, 'description') ? undefined : json['description'],
         'edges': !exists(json, 'edges') ? undefined : EntVideoEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'timestamp': !exists(json, 'timestamp') ? undefined : json['timestamp'],
+        'title': !exists(json, 'title') ? undefined : json['title'],
         'url': !exists(json, 'url') ? undefined : json['url'],
     };
 }
@@ -78,9 +92,11 @@ export function EntVideoToJSON(value?: EntVideo | null): any {
     }
     return {
         
+        'description': value.description,
         'edges': EntVideoEdgesToJSON(value.edges),
         'id': value.id,
-        'name': value.name,
+        'timestamp': value.timestamp,
+        'title': value.title,
         'url': value.url,
     };
 }
