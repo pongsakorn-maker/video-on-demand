@@ -1,9 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { useContext } from 'react';
+import { Button, Grid } from '@material-ui/core';
 import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
 import Navbar from '../Navbar';
-import { ZoomableVideo, Zoomable } from 'react-zoomable-media';
+import {
+  ZoomableVideo,
+  Zoomable,
+  zoomableContext,
+  ZoomableContextType,
+} from 'react-zoomable-media';
 
 const Video = ({
   videoRef,
@@ -16,6 +22,22 @@ const Video = ({
   isPlay: boolean;
   togglePlay: () => void;
 }) => {
+  // const { cropImage } = useContext(zoomableContext) as ZoomableContextType;
+  // const [imageData, serImageData] = useState<string>('');
+
+  // const onClickHandler = () => {
+  //   cropImage((imageData: string) => {
+  //     serImageData(imageData);
+  //   });
+  // };
+
+  // const downloadImage = () => {
+  //   const link = document.createElement('a');
+  //   link.setAttribute('href', imageData);
+  //   link.setAttribute('download', 'Cropped Image');
+  //   link.click();
+  // };
+
   return (
     <SidebarPage>
       <AppSidebar />
@@ -38,6 +60,7 @@ const Video = ({
                       autoPlay
                       controls
                       muted
+                      // crossOrigin="anonymous"
                       onLoadedMetadata={() => onMediaReady(videoRef)}
                       style={{
                         height: '100%',
@@ -45,12 +68,37 @@ const Video = ({
                       }}
                       ref={videoRef}
                       src={url}
+                      // src="https://storage.googleapis.com/video-on-demand-sut/BigBuckBunny.mp4"
+                      // src="https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"
                     />
                   );
                 }}
               ></ZoomableVideo>
               <h1>Here is a video name</h1>
-              <p>Here is a video description</p>
+              <p></p>
+              {/* <Button
+                style={{ marginBottom: 5 }}
+                variant="contained"
+                color="primary"
+                onClick={onClickHandler}
+              >
+                Crop Image
+              </Button>
+              {imageData && (
+                <>
+                  <img
+                    style={{ width: 1280, height: 720, objectFit: 'contain' }}
+                    src={imageData}
+                  />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={downloadImage}
+                  >
+                    Download Cropped Image
+                  </Button>
+                </>
+              )} */}
             </div>
           </Grid>
         </Content>
@@ -94,17 +142,10 @@ function Watch({ src }: WatchProps) {
           alignItems: 'center',
         }}
       >
-        <Video
-          isPlay={isPlay}
-          togglePlay={togglePlay}
-          videoRef={videoRef}
-          url={
-            'https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4'
-          }
-        />
+        <Video isPlay={isPlay} togglePlay={togglePlay} videoRef={videoRef} url={"https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4"}/>
       </div>
     </Zoomable>
   );
-}
+};
 
 export default Watch;

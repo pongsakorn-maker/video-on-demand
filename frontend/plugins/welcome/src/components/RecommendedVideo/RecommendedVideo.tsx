@@ -7,25 +7,21 @@ import Navbar from '../Navbar';
 import { EntVideo } from '../../services';
 import { DefaultApi } from '../../services/apis';
 
-
-
 const RecommendedVideo: FC<{}> = () => {
- const http = new DefaultApi();
-// const [videos, setVideos] = useState(Array);
-const [videos, setVideos] = React.useState<EntVideo[]>([]);
-const [loading, setLoading] = useState(true);
+  const http = new DefaultApi();
+  const [videos, setVideos] = React.useState<EntVideo[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const getViedos = async () => {
-  const res = await http.listVideo({ limit: 4, offset: 0 });
-  setLoading(false);
-  setVideos(res);
-  console.log(res);
-};
+  const getViedos = async () => {
+    const res = await http.listVideo({ limit: 4, offset: 0 });
+    setLoading(false);
+    setVideos(res);
+    console.log(res);
+  };
 
-useEffect(() => {
-  getViedos();
-}, [loading]);
-
+  useEffect(() => {
+    getViedos();
+  }, [loading]);
 
   return (
     <SidebarPage>
@@ -35,11 +31,18 @@ useEffect(() => {
         <Content>
           <Grid container>
             {videos.map(item => {
-                    return (
-                      <VideoCard key={item.id} title={`${item.title}`} chanel={''} watched={10} url={`/watch`} imgsrc={`${item.imgurl}`} src={`${item.url}`}>
-                      </VideoCard>
-                    );
-                  })}
+              return (
+                <VideoCard
+                  key={item.id}
+                  title={`${item.title}`}
+                  chanel={''}
+                  watched={10}
+                  url={`/watch`}
+                  imgsrc={`${item.imgurl}`}
+                  src={`${item.url}`}
+                ></VideoCard>
+              );
+            })}
           </Grid>
         </Content>
       </Page>
