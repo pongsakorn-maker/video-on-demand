@@ -114,6 +114,13 @@ func URL(v string) predicate.Video {
 	})
 }
 
+// Imgurl applies equality check predicate on the "imgurl" field. It's identical to ImgurlEQ.
+func Imgurl(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldImgurl), v))
+	})
+}
+
 // Timestamp applies equality check predicate on the "timestamp" field. It's identical to TimestampEQ.
 func Timestamp(v time.Time) predicate.Video {
 	return predicate.Video(func(s *sql.Selector) {
@@ -451,6 +458,117 @@ func URLEqualFold(v string) predicate.Video {
 func URLContainsFold(v string) predicate.Video {
 	return predicate.Video(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldURL), v))
+	})
+}
+
+// ImgurlEQ applies the EQ predicate on the "imgurl" field.
+func ImgurlEQ(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlNEQ applies the NEQ predicate on the "imgurl" field.
+func ImgurlNEQ(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlIn applies the In predicate on the "imgurl" field.
+func ImgurlIn(vs ...string) predicate.Video {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Video(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldImgurl), v...))
+	})
+}
+
+// ImgurlNotIn applies the NotIn predicate on the "imgurl" field.
+func ImgurlNotIn(vs ...string) predicate.Video {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Video(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldImgurl), v...))
+	})
+}
+
+// ImgurlGT applies the GT predicate on the "imgurl" field.
+func ImgurlGT(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlGTE applies the GTE predicate on the "imgurl" field.
+func ImgurlGTE(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlLT applies the LT predicate on the "imgurl" field.
+func ImgurlLT(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlLTE applies the LTE predicate on the "imgurl" field.
+func ImgurlLTE(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlContains applies the Contains predicate on the "imgurl" field.
+func ImgurlContains(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlHasPrefix applies the HasPrefix predicate on the "imgurl" field.
+func ImgurlHasPrefix(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlHasSuffix applies the HasSuffix predicate on the "imgurl" field.
+func ImgurlHasSuffix(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlEqualFold applies the EqualFold predicate on the "imgurl" field.
+func ImgurlEqualFold(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldImgurl), v))
+	})
+}
+
+// ImgurlContainsFold applies the ContainsFold predicate on the "imgurl" field.
+func ImgurlContainsFold(v string) predicate.Video {
+	return predicate.Video(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldImgurl), v))
 	})
 }
 

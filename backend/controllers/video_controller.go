@@ -24,6 +24,7 @@ type Video struct {
 	Title       string
 	Description string
 	URL         string
+	Imgsrc      string
 	Timestamp   string
 }
 
@@ -67,6 +68,7 @@ func (ctl *VideoController) CreateVideo(c *gin.Context) {
 		SetTitle(obj.Title).
 		SetDescription(obj.Description).
 		SetURL(obj.URL).
+		SetImgurl(obj.Imgsrc).
 		SetTimestamp(timestamp).
 		Save(context.Background())
 	if err != nil {

@@ -4,22 +4,29 @@ import { Content, Page, pageTheme, SidebarPage } from '@backstage/core';
 import VideoCard from '../VideoCard';
 import { AppSidebar } from '../../../../../packages/app/src/sidebar';
 import Navbar from '../Navbar';
+import { EntVideo } from '../../services';
+import { DefaultApi } from '../../services/apis';
 
-// const [videos, setVideos] = useState(Array);
 
-// const [loading, setLoading] = useState(true);
-
-// const getViedos = async () => {
-//   const res = await api.listVideo({ limit: 10, offset: 0 });
-//   setLoading(false);
-//   setVideos(res);
-// };
-
-// useEffect(() => {
-//   getViedos();
-// }, [loading]);
 
 const RecommendedVideo: FC<{}> = () => {
+ const http = new DefaultApi();
+// const [videos, setVideos] = useState(Array);
+const [videos, setVideos] = React.useState<EntVideo[]>([]);
+const [loading, setLoading] = useState(true);
+
+const getViedos = async () => {
+  const res = await http.listVideo({ limit: 4, offset: 0 });
+  setLoading(false);
+  setVideos(res);
+  console.log(res);
+};
+
+useEffect(() => {
+  getViedos();
+}, [loading]);
+
+
   return (
     <SidebarPage>
       <AppSidebar />
@@ -27,26 +34,12 @@ const RecommendedVideo: FC<{}> = () => {
         <Navbar title="Video On Demand" />
         <Content>
           <Grid container>
-            <VideoCard
-              title={'ดาบพิฆาตอสูร EP ที่ 1'}
-              chanel={'Anime'}
-              watched={10}
-              url="/watch"
-            ></VideoCard>
-            <VideoCard
-              title={'ดาบพิฆาตอสูร EP ที่ 1'}
-              chanel={'Anime'}
-              watched={10}
-              url="/watch"
-            ></VideoCard>
-            {/* {videos.map(item => (
-              <VideoCard
-                title={'ดาบพิฆาตอสูร EP ที่ 1'}
-                chanel={'Anime'}
-                watched={10}
-                url="/watch"
-              ></VideoCard>
-            ))} */}
+            {videos.map(item => {
+                    return (
+                      <VideoCard key={item.id} title={`${item.title}`} chanel={''} watched={10} url={`/watch`} imgsrc={`${item.imgurl}`} src={`${item.url}`}>
+                      </VideoCard>
+                    );
+                  })}
           </Grid>
         </Content>
       </Page>

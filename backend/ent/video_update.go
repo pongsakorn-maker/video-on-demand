@@ -47,6 +47,12 @@ func (vu *VideoUpdate) SetURL(s string) *VideoUpdate {
 	return vu
 }
 
+// SetImgurl sets the imgurl field.
+func (vu *VideoUpdate) SetImgurl(s string) *VideoUpdate {
+	vu.mutation.SetImgurl(s)
+	return vu
+}
+
 // SetTimestamp sets the timestamp field.
 func (vu *VideoUpdate) SetTimestamp(t time.Time) *VideoUpdate {
 	vu.mutation.SetTimestamp(t)
@@ -106,6 +112,11 @@ func (vu *VideoUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := vu.mutation.URL(); ok {
 		if err := video.URLValidator(v); err != nil {
 			return 0, &ValidationError{Name: "url", err: fmt.Errorf("ent: validator failed for field \"url\": %w", err)}
+		}
+	}
+	if v, ok := vu.mutation.Imgurl(); ok {
+		if err := video.ImgurlValidator(v); err != nil {
+			return 0, &ValidationError{Name: "imgurl", err: fmt.Errorf("ent: validator failed for field \"imgurl\": %w", err)}
 		}
 	}
 
@@ -197,6 +208,13 @@ func (vu *VideoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: video.FieldURL,
 		})
 	}
+	if value, ok := vu.mutation.Imgurl(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: video.FieldImgurl,
+		})
+	}
 	if value, ok := vu.mutation.Timestamp(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
@@ -275,6 +293,12 @@ func (vuo *VideoUpdateOne) SetURL(s string) *VideoUpdateOne {
 	return vuo
 }
 
+// SetImgurl sets the imgurl field.
+func (vuo *VideoUpdateOne) SetImgurl(s string) *VideoUpdateOne {
+	vuo.mutation.SetImgurl(s)
+	return vuo
+}
+
 // SetTimestamp sets the timestamp field.
 func (vuo *VideoUpdateOne) SetTimestamp(t time.Time) *VideoUpdateOne {
 	vuo.mutation.SetTimestamp(t)
@@ -334,6 +358,11 @@ func (vuo *VideoUpdateOne) Save(ctx context.Context) (*Video, error) {
 	if v, ok := vuo.mutation.URL(); ok {
 		if err := video.URLValidator(v); err != nil {
 			return nil, &ValidationError{Name: "url", err: fmt.Errorf("ent: validator failed for field \"url\": %w", err)}
+		}
+	}
+	if v, ok := vuo.mutation.Imgurl(); ok {
+		if err := video.ImgurlValidator(v); err != nil {
+			return nil, &ValidationError{Name: "imgurl", err: fmt.Errorf("ent: validator failed for field \"imgurl\": %w", err)}
 		}
 	}
 
@@ -421,6 +450,13 @@ func (vuo *VideoUpdateOne) sqlSave(ctx context.Context) (v *Video, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: video.FieldURL,
+		})
+	}
+	if value, ok := vuo.mutation.Imgurl(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: video.FieldImgurl,
 		})
 	}
 	if value, ok := vuo.mutation.Timestamp(); ok {

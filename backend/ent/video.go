@@ -23,6 +23,8 @@ type Video struct {
 	Description string `json:"description,omitempty"`
 	// URL holds the value of the "url" field.
 	URL string `json:"url,omitempty"`
+	// Imgurl holds the value of the "imgurl" field.
+	Imgurl string `json:"imgurl,omitempty"`
 	// Timestamp holds the value of the "timestamp" field.
 	Timestamp time.Time `json:"timestamp,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -61,6 +63,7 @@ func (*Video) scanValues() []interface{} {
 		&sql.NullString{}, // title
 		&sql.NullString{}, // description
 		&sql.NullString{}, // url
+		&sql.NullString{}, // imgurl
 		&sql.NullTime{},   // timestamp
 	}
 }
@@ -99,12 +102,17 @@ func (v *Video) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		v.URL = value.String
 	}
-	if value, ok := values[3].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field timestamp", values[3])
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field imgurl", values[3])
+	} else if value.Valid {
+		v.Imgurl = value.String
+	}
+	if value, ok := values[4].(*sql.NullTime); !ok {
+		return fmt.Errorf("unexpected type %T for field timestamp", values[4])
 	} else if value.Valid {
 		v.Timestamp = value.Time
 	}
-	values = values[4:]
+	values = values[5:]
 	if len(values) == len(video.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field user_id", value)
@@ -150,6 +158,8 @@ func (v *Video) String() string {
 	builder.WriteString(v.Description)
 	builder.WriteString(", url=")
 	builder.WriteString(v.URL)
+	builder.WriteString(", imgurl=")
+	builder.WriteString(v.Imgurl)
 	builder.WriteString(", timestamp=")
 	builder.WriteString(v.Timestamp.Format(time.ANSIC))
 	builder.WriteByte(')')

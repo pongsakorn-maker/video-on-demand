@@ -680,6 +680,7 @@ type VideoMutation struct {
 	title         *string
 	description   *string
 	url           *string
+	imgurl        *string
 	timestamp     *time.Time
 	clearedFields map[string]struct{}
 	owner         *int
@@ -878,6 +879,43 @@ func (m *VideoMutation) ResetURL() {
 	m.url = nil
 }
 
+// SetImgurl sets the imgurl field.
+func (m *VideoMutation) SetImgurl(s string) {
+	m.imgurl = &s
+}
+
+// Imgurl returns the imgurl value in the mutation.
+func (m *VideoMutation) Imgurl() (r string, exists bool) {
+	v := m.imgurl
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldImgurl returns the old imgurl value of the Video.
+// If the Video object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *VideoMutation) OldImgurl(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldImgurl is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldImgurl requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldImgurl: %w", err)
+	}
+	return oldValue.Imgurl, nil
+}
+
+// ResetImgurl reset all changes of the "imgurl" field.
+func (m *VideoMutation) ResetImgurl() {
+	m.imgurl = nil
+}
+
 // SetTimestamp sets the timestamp field.
 func (m *VideoMutation) SetTimestamp(t time.Time) {
 	m.timestamp = &t
@@ -968,7 +1006,7 @@ func (m *VideoMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *VideoMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m.title != nil {
 		fields = append(fields, video.FieldTitle)
 	}
@@ -977,6 +1015,9 @@ func (m *VideoMutation) Fields() []string {
 	}
 	if m.url != nil {
 		fields = append(fields, video.FieldURL)
+	}
+	if m.imgurl != nil {
+		fields = append(fields, video.FieldImgurl)
 	}
 	if m.timestamp != nil {
 		fields = append(fields, video.FieldTimestamp)
@@ -995,6 +1036,8 @@ func (m *VideoMutation) Field(name string) (ent.Value, bool) {
 		return m.Description()
 	case video.FieldURL:
 		return m.URL()
+	case video.FieldImgurl:
+		return m.Imgurl()
 	case video.FieldTimestamp:
 		return m.Timestamp()
 	}
@@ -1012,6 +1055,8 @@ func (m *VideoMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldDescription(ctx)
 	case video.FieldURL:
 		return m.OldURL(ctx)
+	case video.FieldImgurl:
+		return m.OldImgurl(ctx)
 	case video.FieldTimestamp:
 		return m.OldTimestamp(ctx)
 	}
@@ -1043,6 +1088,13 @@ func (m *VideoMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetURL(v)
+		return nil
+	case video.FieldImgurl:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetImgurl(v)
 		return nil
 	case video.FieldTimestamp:
 		v, ok := value.(time.Time)
@@ -1109,6 +1161,9 @@ func (m *VideoMutation) ResetField(name string) error {
 		return nil
 	case video.FieldURL:
 		m.ResetURL()
+		return nil
+	case video.FieldImgurl:
+		m.ResetImgurl()
 		return nil
 	case video.FieldTimestamp:
 		m.ResetTimestamp()

@@ -19,6 +19,7 @@ func (Video) Fields() []ent.Field {
 		field.String("title").NotEmpty(),
 		field.String("description").NotEmpty(),
 		field.String("url").NotEmpty().Unique(),
+		field.String("imgurl").NotEmpty(),
 		field.Time("timestamp").Default(time.Now),
 	}
 }

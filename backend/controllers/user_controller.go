@@ -234,81 +234,43 @@ func (ctl *UserController) UpdateUser(c *gin.Context) {
 	c.JSON(200, user)
 }
 
-// UserSignin handles POST requests for adding user entities
-// @Summary User sign in
-// @Description User sign in
-// @ID user-signin
-// @Accept   json
-// @Produce  json
-// @Param user body ent.User true "User entity"
-// @Success 200 {object} ent.User
-// @Failure 400 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /users/{email}/{password} [post]
-func (ctl *UserController) UserSignin(c *gin.Context) {
-	obj := Signin{}
-	if err := c.ShouldBind(&obj); err != nil {
-		c.JSON(400, gin.H{
-			"error": "sign in binding failed",
-		})
-		return
-	}
-	user, err := ctl.client.User.
-		Query().
-		Where(user.EmailEQ(obj.Email)).
-		Where(user.PasswordEQ(obj.Password)).
-		Only(context.Background())
+// // UserSignin handles POST requests for adding user entities
+// // @Summary User sign in
+// // @Description User sign in
+// // @ID user-signin
+// // @Accept   json
+// // @Produce  json
+// // @Param user body ent.User true "User entity"
+// // @Success 200 {object} ent.User
+// // @Failure 400 {object} gin.H
+// // @Failure 500 {object} gin.H
+// // @Router /users/{email} [post]
+// func (ctl *UserController) UserSignin(c *gin.Context) {
+// 	obj := Signin{}
+// 	if err := c.ShouldBind(&obj); err != nil {
+// 		c.JSON(400, gin.H{
+// 			"error": "sign in binding failed",
+// 		})
+// 		return
+// 	}
+// 	user, err := ctl.client.User.
+// 		Query().
+// 		Where(user.EmailEQ(obj.Email)).
+// 		Where(user.PasswordEQ(obj.Password)).
+// 		Only(context.Background())
 
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "sign in failed",
-		})
-		return
-	}
+// 	if err != nil {
+// 		c.JSON(400, gin.H{
+// 			"error": "sign in failed",
+// 		})
+// 		return
+// 	}
 
-	c.JSON(200, gin.H{
-		"status": true,
-		"data":   user,
-	})
-}
-
-// UserForgotpassword handles POST requests for adding user entities
-// @Summary User forgot password
-// @Description User forgot password
-// @ID user-forgotpassword
-// @Accept   json
-// @Produce  json
-// @Param user body ent.User true "User entity"
-// @Success 200 {object} ent.User
-// @Failure 400 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /users/{email}=?{tel} [post]
-func (ctl *UserController) UserForgotpassword(c *gin.Context) {
-	obj := Forgot{}
-	if err := c.ShouldBind(&obj); err != nil {
-		c.JSON(400, gin.H{
-			"error": "binding failed",
-		})
-		return
-	}
-	user, err := ctl.client.User.
-		Query().
-		Where(user.EmailEQ(obj.Email)).
-		Where(user.TelEQ(obj.Tel)).
-		Only(context.Background())
-
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "failed to change password",
-		})
-		return
-	}
-
-	c.JSON(200, gin.H{
-		"status": true,
-		"data":   user.ID,
-	})
-}
+// 	c.JSON(200, gin.H{
+// 		"status": true,
+// 		"data":   user,
+// 	})
+// }
 
 // NewUserController creates and registers handles for the user controller
 func NewUserController(router gin.IRouter, client *ent.Client) *UserController {
@@ -327,7 +289,7 @@ func (ctl *UserController) register() {
 	// CRUD
 	users.GET("", ctl.ListUser)
 	users.POST("", ctl.CreateUser)
-	users.POST(":email/:password", ctl.UserSignin)
+	// users.POST(":email", ctl.UserSignin)
 	users.GET(":id", ctl.GetUser)
 	users.PUT(":id", ctl.UpdateUser)
 	users.DELETE(":id", ctl.DeleteUser)

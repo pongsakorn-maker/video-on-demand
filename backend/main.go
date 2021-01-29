@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -11,6 +12,7 @@ import (
 	"github.com/pongsakorn-maker/video-on-demand/controllers"
 	_ "github.com/pongsakorn-maker/video-on-demand/docs"
 	"github.com/pongsakorn-maker/video-on-demand/ent"
+	"github.com/pongsakorn-maker/video-on-demand/ent/user"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -41,6 +43,7 @@ type Video struct {
 	Title       string
 	Description string
 	URL         string
+	Imgsrc      string
 }
 
 // @title SUT SA Example API
@@ -102,14 +105,14 @@ func main() {
 	controllers.NewVideoController(v1, client)
 
 	// Set User Data
-	user := Users{
+	users := Users{
 		User: []User{
 			User{"Pongsakorn", "Maprakhon", "pongsakorn@gmail.com", "123456", "0912345678", "2021-01-27T04:11:13.4271549+07:00"},
 			User{"Somchai", "Sabaidee", "somchai@gmail.com", "123456", "0812345678", "2021-01-27T04:11:13.4271549+07:00"},
 		},
 	}
 
-	for _, user := range user.User {
+	for _, user := range users.User {
 		time, err := time.Parse(time.RFC3339, user.Birthdate)
 		if err != nil {
 			println(err)
@@ -128,18 +131,30 @@ func main() {
 	// Set Video Data
 	video := Videos{
 		Video: []Video{
-			Video{1, "BigBunny", "BigBunny test video mp4 file", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"},
-			Video{1, "กอดได้ไหม UrboyTJ - Cover K-OTIC", "กอดได้ไหม UrboyTJ - Cover K-OTIC รวมวงอีกครั้ง", "https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"},
+			Video{1, "BigBunny", "BigBunny test video mp4 file", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://storage.cloud.google.com/video-on-demand-sut/output3.png"},
+			Video{1, "กอดได้ไหม UrboyTJ - Cover K-OTIC", "กอดได้ไหม UrboyTJ - Cover K-OTIC รวมวงอีกครั้ง", "https://storage.googleapis.com/video-on-demand-sut/kotic.mp4", "https://storage.cloud.google.com/video-on-demand-sut/output0.png"},
+			Video{1, "Unravel - Tokyo Ghoul OP 1 [Full Version] Fingerstyle Guitar Cover", "https://storage.cloud.google.com/video-on-demand-sut/videoplayback.mp4", "Lets go home, Kaneki...", "https://storage.cloud.google.com/video-on-demand-sut/output2.png"},
+			Video{1, "My Hero Academia Movie: Heroes:Rising - Might⁺U『You Say Run』vocal ver. (Ep 13 OST)", "Remember real heroes don’t just save lives, they save a persons heart", "https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4", "https://storage.cloud.google.com/video-on-demand-sut/output1.png"},
 		},
 	}
 
 	for _, video := range video.Video {
+		usr, err := client.User.
+			Query().
+			Where(user.IDEQ(video.OwnerID)).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Video.
 			Create().
-			SetOwnerID(video.OwnerID).
+			SetOwner(usr).
 			SetTitle(video.Title).
 			SetDescription(video.Description).
 			SetURL(video.URL).
+			SetImgurl(video.Imgsrc).
 			SetTimestamp(time.Now()).
 			Save(context.Background())
 	}

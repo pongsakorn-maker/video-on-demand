@@ -50,8 +50,12 @@ func init() {
 	videoDescURL := videoFields[2].Descriptor()
 	// video.URLValidator is a validator for the "url" field. It is called by the builders before save.
 	video.URLValidator = videoDescURL.Validators[0].(func(string) error)
+	// videoDescImgurl is the schema descriptor for imgurl field.
+	videoDescImgurl := videoFields[3].Descriptor()
+	// video.ImgurlValidator is a validator for the "imgurl" field. It is called by the builders before save.
+	video.ImgurlValidator = videoDescImgurl.Validators[0].(func(string) error)
 	// videoDescTimestamp is the schema descriptor for timestamp field.
-	videoDescTimestamp := videoFields[3].Descriptor()
+	videoDescTimestamp := videoFields[4].Descriptor()
 	// video.DefaultTimestamp holds the default value on creation for the timestamp field.
 	video.DefaultTimestamp = videoDescTimestamp.Default.(func() time.Time)
 }

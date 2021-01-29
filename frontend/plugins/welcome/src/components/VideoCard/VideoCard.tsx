@@ -5,7 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
+import {Link as Mlink} from '@material-ui/core/';
 
 const useStyles = makeStyles({
   root: {
@@ -21,22 +22,24 @@ export type VideoDescriptionProps = {
   chanel: string;
   watched: number;
   url: string;
+  imgsrc: string;
+  src: string;
 };
 
-function VideoCard({ title, chanel, watched, url }: VideoDescriptionProps) {
+function VideoCard({ title, chanel, watched, url,src,imgsrc }: VideoDescriptionProps) {
   const classes = useStyles();
   const preventDefault = (event: React.SyntheticEvent) => {
     event.preventDefault();
   };
   return (
     <Grid item xs={12} md={3}>
-      <Link href={url}>
+      <Link to={{pathname: `/${url}`}}>
         <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
               component="img"
-              image="https://wallpapercave.com/wp/wp5615561.jpg"
+              image={imgsrc}
               title="video-title"
             />
             <CardContent>
@@ -44,9 +47,9 @@ function VideoCard({ title, chanel, watched, url }: VideoDescriptionProps) {
                 {title}
               </Typography>
               <Typography gutterBottom variant="subtitle1" component="h2">
-                <Link color="inherit" href="#" onClick={preventDefault}>
+                <Mlink color="inherit" href="#" onClick={preventDefault}>
                   {chanel}
-                </Link>
+                </Mlink>
               </Typography>
               <Typography gutterBottom variant="caption" component="h3">
                 {'การดู'} {watched} {'ครั้ง'}

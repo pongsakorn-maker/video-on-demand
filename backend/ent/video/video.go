@@ -17,6 +17,8 @@ const (
 	FieldDescription = "description"
 	// FieldURL holds the string denoting the url field in the database.
 	FieldURL = "url"
+	// FieldImgurl holds the string denoting the imgurl field in the database.
+	FieldImgurl = "imgurl"
 	// FieldTimestamp holds the string denoting the timestamp field in the database.
 	FieldTimestamp = "timestamp"
 
@@ -40,6 +42,7 @@ var Columns = []string{
 	FieldTitle,
 	FieldDescription,
 	FieldURL,
+	FieldImgurl,
 	FieldTimestamp,
 }
 
@@ -55,6 +58,8 @@ var (
 	DescriptionValidator func(string) error
 	// URLValidator is a validator for the "url" field. It is called by the builders before save.
 	URLValidator func(string) error
+	// ImgurlValidator is a validator for the "imgurl" field. It is called by the builders before save.
+	ImgurlValidator func(string) error
 	// DefaultTimestamp holds the default value on creation for the timestamp field.
 	DefaultTimestamp func() time.Time
 )

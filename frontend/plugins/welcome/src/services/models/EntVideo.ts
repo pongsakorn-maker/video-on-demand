@@ -45,6 +45,12 @@ export interface EntVideo {
      */
     id?: number;
     /**
+     * Imgurl holds the value of the "imgurl" field.
+     * @type {string}
+     * @memberof EntVideo
+     */
+    imgurl?: string;
+    /**
      * Timestamp holds the value of the "timestamp" field.
      * @type {string}
      * @memberof EntVideo
@@ -77,6 +83,7 @@ export function EntVideoFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'description': !exists(json, 'description') ? undefined : json['description'],
         'edges': !exists(json, 'edges') ? undefined : EntVideoEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
+        'imgurl': !exists(json, 'imgurl') ? undefined : json['imgurl'],
         'timestamp': !exists(json, 'timestamp') ? undefined : json['timestamp'],
         'title': !exists(json, 'title') ? undefined : json['title'],
         'url': !exists(json, 'url') ? undefined : json['url'],
@@ -95,6 +102,7 @@ export function EntVideoToJSON(value?: EntVideo | null): any {
         'description': value.description,
         'edges': EntVideoEdgesToJSON(value.edges),
         'id': value.id,
+        'imgurl': value.imgurl,
         'timestamp': value.timestamp,
         'title': value.title,
         'url': value.url,

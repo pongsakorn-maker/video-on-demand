@@ -15,7 +15,9 @@ const Video = ({
   videoRef,
   isPlay,
   togglePlay,
+  url,
 }: {
+  url: string;
   videoRef: React.RefObject<HTMLVideoElement>;
   isPlay: boolean;
   togglePlay: () => void;
@@ -43,7 +45,14 @@ const Video = ({
         <Navbar title="Video On Demand" />
         <Content>
           <Grid container>
-            <div style={{ width: 1280, height: 720, marginBottom: 150,backgroundColor:"#000000" }}>
+            <div
+              style={{
+                width: 1280,
+                height: 720,
+                marginBottom: 150,
+                backgroundColor: '#000000',
+              }}
+            >
               <ZoomableVideo
                 render={({ onMediaReady }) => {
                   return (
@@ -58,11 +67,9 @@ const Video = ({
                         width: '100%',
                       }}
                       ref={videoRef}
-                      src="https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4"
+                      src={url}
                       // src="https://storage.googleapis.com/video-on-demand-sut/BigBuckBunny.mp4"
                       // src="https://storage.googleapis.com/video-on-demand-sut/kotic.mp4"
-                      // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                      // src="https://firebasestorage.googleapis.com/v0/b/fir-video-upload-487f2.appspot.com/o/Unravel%20-%20Tokyo%20Ghoul%20OP%201%20%5BFull%20Version%5D%20Fingerstyle%20Guitar%20Cover.webm?alt=media&token=f7b081e2-6c7d-49a7-8d7c-e9ec5660c0f7"
                     />
                   );
                 }}
@@ -99,11 +106,12 @@ const Video = ({
     </SidebarPage>
   );
 };
-
-const Watch = () => {
+export type WatchProps = {
+  src: string;
+};
+function Watch({ src }: WatchProps) {
   const [isPlay, setIsPlay] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
   const togglePlay = () => {
     const video = videoRef.current as HTMLVideoElement;
     setIsPlay(!isPlay);
@@ -134,7 +142,7 @@ const Watch = () => {
           alignItems: 'center',
         }}
       >
-        <Video isPlay={isPlay} togglePlay={togglePlay} videoRef={videoRef} />
+        <Video isPlay={isPlay} togglePlay={togglePlay} videoRef={videoRef} url={"https://storage.cloud.google.com/video-on-demand-sut/Might%E2%81%BAU.mp4"}/>
       </div>
     </Zoomable>
   );

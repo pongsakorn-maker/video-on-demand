@@ -107,94 +107,6 @@
                 }
             }
         },
-        "/users/{email}/{password}": {
-            "post": {
-                "description": "User sign in",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "User sign in",
-                "operationId": "user-signin",
-                "parameters": [
-                    {
-                        "description": "User entity",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/ent.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.User"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{email}/{tel}": {
-            "post": {
-                "description": "User forgot password",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "User forgot password",
-                "operationId": "user-forgotpassword",
-                "parameters": [
-                    {
-                        "description": "User entity",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/ent.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.User"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
         "/users/{id}": {
             "get": {
                 "description": "get user by ID",
@@ -625,6 +537,10 @@
                 "id": {
                     "description": "ID of the ent.",
                     "type": "integer"
+                },
+                "imgurl": {
+                    "description": "Imgurl holds the value of the \"imgurl\" field.",
+                    "type": "string"
                 },
                 "timestamp": {
                     "description": "Timestamp holds the value of the \"timestamp\" field.",

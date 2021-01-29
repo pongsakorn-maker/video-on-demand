@@ -31,6 +31,7 @@ var (
 		{Name: "title", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString},
 		{Name: "url", Type: field.TypeString, Unique: true},
+		{Name: "imgurl", Type: field.TypeString},
 		{Name: "timestamp", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
 	}
@@ -42,7 +43,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "videos_users_videos",
-				Columns: []*schema.Column{VideosColumns[5]},
+				Columns: []*schema.Column{VideosColumns[6]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,

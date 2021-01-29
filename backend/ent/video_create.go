@@ -39,6 +39,12 @@ func (vc *VideoCreate) SetURL(s string) *VideoCreate {
 	return vc
 }
 
+// SetImgurl sets the imgurl field.
+func (vc *VideoCreate) SetImgurl(s string) *VideoCreate {
+	vc.mutation.SetImgurl(s)
+	return vc
+}
+
 // SetTimestamp sets the timestamp field.
 func (vc *VideoCreate) SetTimestamp(t time.Time) *VideoCreate {
 	vc.mutation.SetTimestamp(t)
@@ -101,6 +107,14 @@ func (vc *VideoCreate) Save(ctx context.Context) (*Video, error) {
 	if v, ok := vc.mutation.URL(); ok {
 		if err := video.URLValidator(v); err != nil {
 			return nil, &ValidationError{Name: "url", err: fmt.Errorf("ent: validator failed for field \"url\": %w", err)}
+		}
+	}
+	if _, ok := vc.mutation.Imgurl(); !ok {
+		return nil, &ValidationError{Name: "imgurl", err: errors.New("ent: missing required field \"imgurl\"")}
+	}
+	if v, ok := vc.mutation.Imgurl(); ok {
+		if err := video.ImgurlValidator(v); err != nil {
+			return nil, &ValidationError{Name: "imgurl", err: fmt.Errorf("ent: validator failed for field \"imgurl\": %w", err)}
 		}
 	}
 	if _, ok := vc.mutation.Timestamp(); !ok {
@@ -190,6 +204,14 @@ func (vc *VideoCreate) createSpec() (*Video, *sqlgraph.CreateSpec) {
 			Column: video.FieldURL,
 		})
 		v.URL = value
+	}
+	if value, ok := vc.mutation.Imgurl(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: video.FieldImgurl,
+		})
+		v.Imgurl = value
 	}
 	if value, ok := vc.mutation.Timestamp(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
