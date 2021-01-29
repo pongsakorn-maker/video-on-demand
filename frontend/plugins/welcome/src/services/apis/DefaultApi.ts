@@ -67,6 +67,10 @@ export interface UpdateVideoRequest {
     video: EntVideo;
 }
 
+export interface UserSignInRequest {
+    user: EntUser;
+}
+
 /**
  * 
  */
@@ -417,6 +421,41 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateVideo(requestParameters: UpdateVideoRequest): Promise<EntVideo> {
         const response = await this.updateVideoRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * User sign in
+     * User sign in
+     */
+    async userSignInRaw(requestParameters: UserSignInRequest): Promise<runtime.ApiResponse<EntUser>> {
+        if (requestParameters.user === null || requestParameters.user === undefined) {
+            throw new runtime.RequiredError('user','Required parameter requestParameters.user was null or undefined when calling userSignIn.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/users/{email}/{password}`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntUserToJSON(requestParameters.user),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntUserFromJSON(jsonValue));
+    }
+
+    /**
+     * User sign in
+     * User sign in
+     */
+    async userSignIn(requestParameters: UserSignInRequest): Promise<EntUser> {
+        const response = await this.userSignInRaw(requestParameters);
         return await response.value();
     }
 

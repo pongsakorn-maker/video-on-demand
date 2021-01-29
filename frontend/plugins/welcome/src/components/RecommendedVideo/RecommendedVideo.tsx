@@ -13,7 +13,7 @@ const RecommendedVideo: FC<{}> = () => {
   const [loading, setLoading] = useState(true);
 
   const getViedos = async () => {
-    const res = await http.listVideo({ limit: 4, offset: 0 });
+    const res = await http.listVideo({ limit: 10, offset: 0 });
     setLoading(false);
     setVideos(res);
     console.log(res);

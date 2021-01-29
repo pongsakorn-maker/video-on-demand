@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
 const SignIn: FC<{}> = () => {
   const classes = useStyles();
 
-
   const EmailhandleChange = (event: any) => {
     setEmail(event.target.value as string);
   };
@@ -57,14 +56,21 @@ const SignIn: FC<{}> = () => {
       toast.addEventListener('mouseleave', Swal.resumeTimer);
     },
   });
-
+  function signedin() {
+    window.location.href = 'http://localhost:3000/';
+  }
   function signin() {
-    const user ={
-      email : email,
-      password : password,
-    }
+    const user = {
+      email: email,
+      password: password,
+    };
     console.log(email, password);
-    const apiUrl = 'http://localhost:8080/api/v1/users'+"/:"+{email}+"/:"+{password};
+    const apiUrl =
+      'http://localhost:8080/api/v1/users' +
+      '/:' +
+      { email } +
+      '/:' +
+      { password };
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -80,7 +86,7 @@ const SignIn: FC<{}> = () => {
             icon: 'success',
             title: 'เข้าสู่ระบบสำเร็จ',
           });
-          window.location.href = 'http://localhost:3000/';
+          setTimeout(signedin, 1000);
         } else {
           Toast.fire({
             icon: 'error',
@@ -90,67 +96,66 @@ const SignIn: FC<{}> = () => {
       });
   }
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOpenOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={EmailhandleChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={PasswordhandleChange}
-            />
-            <Button
-              // type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={signin}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/forgotpass" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up!"}
-                </Link>
-              </Grid>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOpenOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={EmailhandleChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={PasswordhandleChange}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={signin}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="/forgotpass" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-          </form>
-        </div>
-      </Container>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account? Sign Up!"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
 
